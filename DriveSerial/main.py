@@ -1,20 +1,51 @@
-from DriveSerial.thGenerator import *
 from DriveSerial.constants import *
 import sys
 from PyQt4 import QtCore, QtGui
 from DriveSerial.UI_DriveTestBed import Ui_TBDriveClient
+from DriveSerial.DI_seqence_gen import Ui_Dialog_sequence_gen
+from DriveSerial.thGenerator import *
 
+## classes for building the GUIs
 
-## class for building the GUI
-class StartQT4(QtGui.QMainWindow):
+class ui_First(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_TBDriveClient()
         self.ui.setupUi(self)
         self.filename = None
+        self.gen_res = False
+
+
+class ui_seq_gen(QtGui.QDialog):
+    def __init__(self, parent=None):
+        QtGui.QWidget.__init__(self, parent)
+        self.ui = Ui_Dialog_sequence_gen()
+        self.ui.setupUi(self)
+
+
+
+
+class Main_Window(ui_First):
+    def __init__(self, parent=None):
+        super(Main_Window, self).__init__(parent)
+
         # here we connect signals with our slots
         QtCore.QObject.connect(self.ui.actionOpen, QtCore.SIGNAL("activated()"), self.file_dialog)
-        QtCore.QObject.connect(self.ui.actionSave, QtCore.SIGNAL("clicked()"), self.file_save)
+        QtCore.QObject.connect(self.ui.actionSave, QtCore.SIGNAL("activated()"), self.file_save)
+        QtCore.QObject.connect(self.ui.action_Generate, QtCore.SIGNAL("activated()"), self.gen_sequence)
+
+
+        # here we define children dialogues windows
+        self.dialog_seq_gen= Seq_gen(self)
+
+
+    def on_pushButton_clicked(self):
+        self.dialog.show()
+
+    def gen_sequence(self):
+
+
+        self.dialog_seq_gen.show()
 
     def file_dialog(self):
         fd = QtGui.QFileDialog(self)
@@ -28,8 +59,15 @@ class StartQT4(QtGui.QMainWindow):
         from os.path import isfile
         if isfile(self.filename):
             file = open(self.filename, 'w')
-            file.write(self.ui.editor_window.toPlainText())
+            file.write(self.ui.textEdit.toPlainText())
             file.close()
+
+
+
+class Seq_gen(ui_seq_gen):
+    def __init__(self, parent=None):
+        super(Seq_gen, self).__init__(parent)
+
 
 
 if __name__ == '__main__':
@@ -51,6 +89,6 @@ if __name__ == '__main__':
     print('Vector speed th=', th_vector_speedload.th)
 
     app = QtGui.QApplication(sys.argv)
-    myapp = StartQT4()
+    myapp = Main_Window()
     myapp.show()
     sys.exit(app.exec_())
