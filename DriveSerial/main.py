@@ -21,6 +21,77 @@ class ui_seq_gen(QtGui.QDialog):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_Dialog_sequence_gen()
         self.ui.setupUi(self)
+        self.value_changed=False
+        seq_types = SEQ_TYPES_DESCR
+        for key, type in seq_types.items():
+            item = QtGui.QListWidgetItem(type['name'])
+            tooltip = type['description']
+            self.ui.listWidget_types.addItem(item)
+
+        self.ui.listWidget_types.currentItemChanged.connect(self.on_type_changed)
+        # self.ui.spinBox_rpm_min.changeEvent.connect(self.on_value_changed)
+        # self.ui.spinBox_rpm_max.changeEvent.connect(self.on_value_changed)
+
+    def on_type_changed(self,curr, prev):
+
+
+        if prev == None:
+            print("type changed to {}:{} {}".format(curr.text(),self.ui.listWidget_types.currentRow() ,curr.toolTip()))
+
+        else:
+            print("type changed from {} to {}:{} {}".format(prev.text(),curr.text(),self.ui.listWidget_types.currentRow() ,curr.toolTip()))
+            if self.value_changed:
+                msg = QtGui.QMessageBox()
+                msg.setIcon(QtGui.QMessageBox.Warning)
+                msg.setText("Values already changed")
+                msg.setInformativeText("You have already modified some values in controls.Do you want cancel them")
+                msg.setWindowTitle("Warning!")
+                msg.setDetailedText("The details are as follows:")
+                msg.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
+
+                retval = msg.exec_()
+                print
+                "value of pressed message box button:", retval
+            self.disable_all_control()
+        self.gen_seq_type_selected = self.ui.listWidget_types.currentRow()+1
+
+        if self.gen_seq_type_selected == SPEEDTH:
+            self.ui.spinBox_rpm_min.setEnabled(True)
+            self.ui.spinBox_rpm_max.setEnabled(True)
+            self.ui.spinBox_rpm_step.setEnabled(True)
+            self.ui.doubleSpinBox_move_time.setEnabled(True)
+            self.ui.doubleSpinBox_steady_time.setEnabled(True)
+            self.ui.lineEdit_gen_seq_name.setEnabled(True)
+            self.ui.checkBox_rpm_dir_TD.setEnabled(True)
+            self.ui.checkBox_rpm_dir_BU.setEnabled(True)
+
+
+
+
+
+
+
+    def on_value_changed(self):
+        self.value_changed=True
+
+    def disable_all_control(self):
+
+        self.ui.spinBox_rpm_min.setEnabled(False)
+        self.ui.spinBox_rpm_max.setEnabled(False)
+        self.ui.spinBox_rpm_step.setEnabled(False)
+        self.ui.doubleSpinBox_move_time.setEnabled(False)
+        self.ui.doubleSpinBox_steady_time.setEnabled(False)
+        self.ui.doubleSpinBox_slope_time.setEnabled(False)
+        self.ui.lineEdit_gen_seq_name.setEnabled(False)
+        self.ui.checkBox_rpm_dir_TD.setEnabled(False)
+        self.ui.checkBox_rpm_dir_BU.setEnabled(False)
+        self.ui.doubleSpinBox_load_min.setEnabled(False)
+        self.ui.doubleSpinBox_load_max.setEnabled(False)
+        self.ui.doubleSpinBox_load_step.setEnabled(False)
+        self.ui.checkBox_load_dir_TD.setEnabled(False)
+        self.ui.checkBox_load_dir_BU.setEnabled(False)
+
+
 
 
 
@@ -43,6 +114,7 @@ class Main_Window(ui_First):
         self.dialog.show()
 
     def gen_sequence(self):
+
 
 
         self.dialog_seq_gen.show()
