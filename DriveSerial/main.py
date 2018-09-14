@@ -66,11 +66,6 @@ class ui_seq_gen(QtGui.QDialog):
             self.ui.checkBox_rpm_dir_BU.setEnabled(True)
 
 
-
-
-
-
-
     def on_value_changed(self):
         self.value_changed=True
 
@@ -79,21 +74,25 @@ class ui_seq_gen(QtGui.QDialog):
         self.ui.spinBox_rpm_min.setEnabled(False)
         self.ui.spinBox_rpm_max.setEnabled(False)
         self.ui.spinBox_rpm_step.setEnabled(False)
+        self.ui.checkBox_rpm_dir_TD.setEnabled(False)
+        self.ui.checkBox_rpm_dir_BU.setEnabled(False)
+        self.ui.checkBox_rpm_repetition_False.setEnabled(False)
+        self.ui.checkBox_rpm_repetition_True.setEnabled(False)
+
         self.ui.doubleSpinBox_move_time.setEnabled(False)
         self.ui.doubleSpinBox_steady_time.setEnabled(False)
         self.ui.doubleSpinBox_slope_time.setEnabled(False)
+        self.ui.doubleSpinBox_res_time.setEnabled(False)
+
         self.ui.lineEdit_gen_seq_name.setEnabled(False)
-        self.ui.checkBox_rpm_dir_TD.setEnabled(False)
-        self.ui.checkBox_rpm_dir_BU.setEnabled(False)
+
         self.ui.doubleSpinBox_load_min.setEnabled(False)
         self.ui.doubleSpinBox_load_max.setEnabled(False)
         self.ui.doubleSpinBox_load_step.setEnabled(False)
         self.ui.checkBox_load_dir_TD.setEnabled(False)
         self.ui.checkBox_load_dir_BU.setEnabled(False)
-
-
-
-
+        self.ui.checkBox_load_repetition_False.setEnabled(False)
+        self.ui.checkBox_load_repetition_True.setEnabled(False)
 
 
 class Main_Window(ui_First):
