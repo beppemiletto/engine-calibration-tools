@@ -42,8 +42,16 @@ class thGenerator():
 
 
      ## Steady vector time history geneators , load and speed methods
+    # self.th = th_vector_load.gen_SteadySeq(mode=LOADTH,
+    #                                        load=[self.load_min, self.load_max, self.load_step],
+    #                                        speed=None,
+    #                                        steadytime=self.steady_time,
+    #                                        direction=DOWNWARDS,
+    #                                        transtime=self.move_time,
+    #                                        repetition=self.load_repetition,
+    #                                        name=self.gen_seq_name)
 
-    def gen_SteadySeq(self, mode=None, load = [None, None, None], speed = [None, None, None], steadytime = None, direction = None, transtime = None):
+    def gen_SteadySeq(self, mode=None, load = [None, None, None], speed = [None, None, None], steadytime = None,  direction = None, transtime = None, repetition=None, name=None):
         if mode :
             if mode == LOADTH:
                 self.mode = LOADTH
@@ -301,6 +309,7 @@ class thGenerator():
                                 self.th.append(csv_row)
 
             return self.th
+
 
 
 

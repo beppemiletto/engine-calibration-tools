@@ -13,7 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QDialogButtonBox" name="buttonOKCancel">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -253,7 +256,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>21</x>
@@ -428,7 +431,7 @@
            <string>Top&gt;Down</string>
           </property>
           <property name="autoExclusive">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -444,7 +447,7 @@
            <bool>true</bool>
           </property>
           <property name="autoExclusive">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -470,7 +473,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_speed_repetition">
         <item>
-         <widget class="QCheckBox" name="checkBox_rpm_repetition_True">
+         <widget class="QCheckBox" name="checkBox_rpm_repetition">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -478,23 +481,7 @@
            <string>Go and Back</string>
           </property>
           <property name="autoExclusive">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_rpm_repetition_False">
-          <property name="enabled">
            <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>only Go</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-          <property name="autoExclusive">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -504,7 +491,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -647,7 +634,7 @@
              <string>Top&gt;Down</string>
             </property>
             <property name="autoExclusive">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -663,7 +650,7 @@
              <bool>true</bool>
             </property>
             <property name="autoExclusive">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -691,7 +678,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_load_repetition">
         <item>
-         <widget class="QCheckBox" name="checkBox_load_repetition_True">
+         <widget class="QCheckBox" name="checkBox_load_repetition">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -699,23 +686,7 @@
            <string>Go and Back</string>
           </property>
           <property name="autoExclusive">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_load_repetition_False">
-          <property name="enabled">
            <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>only Go</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-          <property name="autoExclusive">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -728,16 +699,14 @@
   <zorder>layoutWidget</zorder>
   <zorder>layoutWidget</zorder>
   <zorder>layoutWidget</zorder>
-  <zorder>buttonBox</zorder>
   <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget_4</zorder>
-  <zorder>layoutWidget_2</zorder>
-  <zorder>layoutWidget_3</zorder>
+  <zorder>buttonOKCancel</zorder>
+  <zorder>layoutWidget</zorder>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>buttonOKCancel</sender>
    <signal>accepted()</signal>
    <receiver>Dialog_sequence_gen</receiver>
    <slot>accept()</slot>
@@ -753,7 +722,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>buttonOKCancel</sender>
    <signal>rejected()</signal>
    <receiver>Dialog_sequence_gen</receiver>
    <slot>reject()</slot>
