@@ -1,4 +1,6 @@
 ## CONSTANT DEFINITION
+import datetime
+
 
 # Steady Times boundaries for safe operations
 STEADYMINTIME = 20      # seconds
@@ -7,7 +9,7 @@ DEFAULTSTEADYTIME = 60  #
 
 DEFAULTTRNTIME = 20     # default transition time between steady points
 
-TRN_D_TIME = 0.1        # DELTA TIME (time resolution) for developing transient among steady points
+TRN_D_TIME: float = 0.05        # DELTA TIME (time resolution in seconds)
 
 
 # Time history generation modes
@@ -44,3 +46,9 @@ UPWARDS = 1         # Direction of the movement in the time history generation
 DOWNWARDS = 2       # Direction of the movement in the time history generation
 DEFAULTDIR = UPWARDS
 
+THFILE_PATH = 'D:\\projects\\DriveTestBedTH\\'
+
+DATEANDTIME = datetime.datetime(2019,1,21,10,12,00,00)
+
+STARTMINLOAD = 6        # LOAD % at which the start of the positioned before arriving to first step
+STARTMINSPEED = 600     # Speed RPM at which the start of the positioned before arriving to first step

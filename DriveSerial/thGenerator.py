@@ -31,14 +31,20 @@ Todo:
    http://google.github.io/styleguide/pyguide.html
 
 """
+from typing import List, Any
+
 from DriveSerial.constants import *
 import time
 
 
 class thGenerator():
+    row_template: str
+    th: List[Any]
+
     def __init__(self):
         self.th =[]
         self.mode = None
+        self.row_template="{};{};{}\n"
 
 
      ## Steady vector time history geneators , load and speed methods
@@ -51,7 +57,11 @@ class thGenerator():
     #                                        repetition=self.load_repetition,
     #                                        name=self.gen_seq_name)
 
-    def gen_SteadySeq(self, mode=None, load = [None, None, None], speed = [None, None, None], steadytime = None,  direction = None, transtime = None, repetition=None, name=None):
+    def gen_SteadySeq(self, mode: object = None, load: object = [None, None, None], speed: object = [None, None, None], steadytime: object = None,
+                      direction: object = None,
+                      transtime: object = None,
+                      repetition: object = None,
+                      name: object = None) -> object:
         if mode :
             if mode == LOADTH:
                 self.mode = LOADTH
@@ -90,12 +100,10 @@ class thGenerator():
                     self.warning = 'WARNING: direction specification missing. Assuming default.'
                     self.direction= DEFAULTDIR
 
-
-
                 ## generate the time history
-
                 steps_nr= int((self.load_max-self.load_min)/self.load_stp)+1
-                steps=[]
+                steps: List[float]=[]
+                idx: int
                 for idx in range(steps_nr):
                     if self.direction == UPWARDS:
                         steps.append(float(self.load_min+idx*self.load_stp))
@@ -108,19 +116,35 @@ class thGenerator():
                     self.transtime = DEFAULTTRNTIME
 
                 # initialize time of time history
-                t0 = time.time()
-                t = 0
+                load_old = STARTMINLOAD
+                # write the title of column in csv like table
+                csv_row: str = self.row_template.format('Brake [RPM]','Torque [%]','ExternalControl')
+                self.th.append(csv_row)
                 for idx, target in enumerate(steps):
-                    csv_row = "{},{},{},{}".format(LOADTH,self.steadytime,-1,target)
-                    self.th.append(csv_row)
                     # transition to next
-                    if idx < steps_nr -1 :
-                        trn_steps = int(self.transtime / TRN_D_TIME )+1
-                        load_step = float((steps[idx+1]-target)/float(trn_steps))
-                        for iidx in range (trn_steps):
-                            load_new = target + load_step * iidx
-                            csv_row = "{},{},{},{}".format(LOADTH, TRN_D_TIME, -1, load_new)
+                    trn_steps = int(self.transtime / TRN_D_TIME )+1
+                    trn_x_step: float = float((target - load_old)/ trn_steps)
+
+                    if idx < steps_nr:
+                        for jdx in range(trn_steps):
+                            csv_row = self.row_template.format(0,load_old + jdx * trn_x_step,1)
                             self.th.append(csv_row)
+
+                    steady_steps = int(steadytime/TRN_D_TIME)
+                    for jdx in range(steady_steps):
+                        csv_row = self.row_template.format(0,int(target),1)
+                        self.th.append(csv_row)
+                    load_old=target
+
+                if repetition:
+                    buffer_th = self.th.copy()
+                    buffer_th.reverse()
+                    for csv_row in buffer_th:
+                        self.th.append(csv_row)
+
+
+                    
+
 
             if mode == SPEEDTH:
                 self.mode = SPEEDTH
@@ -163,35 +187,47 @@ class thGenerator():
                     self.warning = 'WARNING: direction specification missing. Assuming default.'
                     self.direction = DEFAULTDIR
 
-                ## generate the time history
-
-                steps_nr = int((self.speed_max - self.speed_min) / self.speed_stp) + 1
-                steps = []
+                # generate the time history
+                steps_nr= int((self.speed_max-self.speed_min)/self.speed_stp)+1
+                steps: List[float]=[]
+                idx: int
                 for idx in range(steps_nr):
                     if self.direction == UPWARDS:
-                        steps.append(float(self.speed_min + idx * self.speed_stp))
+                        steps.append(float(self.speed_min+idx*self.speed_stp))
                     else:
-                        steps.append(float(self.speed_max - idx * self.speed_stp))
+                        steps.append(float(self.speed_max-idx*self.speed_stp))
 
-                if transtime:
+                if transtime :
                     self.transtime = transtime
                 else:
                     self.transtime = DEFAULTTRNTIME
 
                 # initialize time of time history
-                t0 = time.time()
-                t = 0
+                speed_old = STARTMINSPEED
+                # write the title of column in csv like table
+                csv_row: str = self.row_template.format('Brake [RPM]','Torque [%]','ExternalControl')
+                self.th.append(csv_row)
                 for idx, target in enumerate(steps):
-                    csv_row = "{},{},{},{}".format(SPEEDTH, self.steadytime, target,-1, target)
-                    self.th.append(csv_row)
                     # transition to next
-                    if idx < steps_nr - 1:
-                        trn_steps = int(self.transtime / TRN_D_TIME) + 1
-                        speed_step = float((steps[idx + 1] - target) / float(trn_steps))
-                        for iidx in range(trn_steps):
-                            speed_new = target + speed_step * iidx
-                            csv_row = "{},{},{},{}".format(SPEEDTH, TRN_D_TIME, speed_new, -1 )
+                    trn_steps = int(self.transtime / TRN_D_TIME )+1
+                    trn_x_step: float = float((target - speed_old)/ trn_steps)
+
+                    if idx < steps_nr:
+                        for jdx in range(trn_steps):
+                            csv_row = self.row_template.format(speed_old + jdx * trn_x_step, 0, 1)
                             self.th.append(csv_row)
+
+                    steady_steps = int(steadytime/TRN_D_TIME)
+                    for jdx in range(steady_steps):
+                        csv_row = self.row_template.format(int(target),0,1)
+                        self.th.append(csv_row)
+                    speed_old=target
+
+                if repetition:
+                    buffer_th = self.th.copy()
+                    buffer_th.reverse()
+                    for csv_row in buffer_th:
+                        self.th.append(csv_row)
 
             return self.th
 
@@ -310,6 +346,55 @@ class thGenerator():
 
             return self.th
 
+
+    def segment_load_gen(self, mode: object = None, load: object = [None, None, None],
+                         speed: object = [None, None, None],
+                         steadytime: object = None,
+                         direction: object = None,
+                         transtime: object = None,
+                         repetition: object = None,
+                         name: object = None) -> object:
+        ## generate the time history
+        steps_nr = int((self.load_max - self.load_min) / self.load_stp) + 1
+        steps: List[float] = []
+        idx: int
+        for idx in range(steps_nr):
+            if self.direction == UPWARDS:
+                steps.append(float(self.load_min + idx * self.load_stp))
+            else:
+                steps.append(float(self.load_max - idx * self.load_stp))
+
+        if transtime:
+            self.transtime = transtime
+        else:
+            self.transtime = DEFAULTTRNTIME
+
+        # initialize time of time history
+        load_old = STARTMINLOAD
+        # write the title of column in csv like table
+        csv_row: str = self.row_template.format('Brake [RPM]', 'Torque [%]', 'ExternalControl')
+        self.th.append(csv_row)
+        for idx, target in enumerate(steps):
+            # transition to next
+            trn_steps = int(self.transtime / TRN_D_TIME) + 1
+            trn_x_step: float = float((target - load_old) / trn_steps)
+
+            if idx < steps_nr:
+                for jdx in range(trn_steps):
+                    csv_row = self.row_template.format(0, load_old + jdx * trn_x_step, 1)
+                    self.th.append(csv_row)
+
+            steady_steps = int(steadytime / TRN_D_TIME)
+            for jdx in range(steady_steps):
+                csv_row = self.row_template.format(0, int(target), 1)
+                self.th.append(csv_row)
+            load_old = target
+
+        if repetition:
+            buffer_th = self.th.copy()
+            buffer_th.reverse()
+            for csv_row in buffer_th:
+                self.th.append(csv_row)
 
 
 
