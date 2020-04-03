@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<working_points release="L6.02.05">
+
+        <table type="MAP" symbol="jtADV_NORMAL">
+            <xaxis type="AXIS_PTS" symbol="jkETASP_2"></xaxis>
+            <xinput type="MEASUREMENT" symbol="asEtasp"></xinput>
+            <yaxis type="AXIS_PTS" symbol="jkRPM_9"></yaxis>
+            <yinput type="MEASUREMENT" symbol="bsRPM"></yinput>
+        </table>
+
+        <table type="MAP" symbol="atRES_ASPIR">
+            <xaxis type="AXIS_PTS" symbol="akRPM_4"></xaxis>
+            <xinput type="MEASUREMENT" symbol="bsRPM"></xinput>
+            <yaxis type="AXIS_PTS" symbol="akMAP_2"></yaxis>
+            <yinput type="MEASUREMENT" symbol="zsMap"></yinput>
+        </table>
+
+        <table type="MAP" symbol="etCMU2QAIR_OBJ">
+            <xaxis type="AXIS_PTS" symbol="ekCMU2QAIR_OBJRP"></xaxis>
+            <xinput type="MEASUREMENT" symbol="bsRPM"></xinput>
+            <yaxis type="AXIS_PTS" symbol="ekCMU2QAIR_OBJCM"></yaxis>
+            <yinput type="MEASUREMENT" symbol="esCmuAirLamAdTst"></yinput>
+        </table>
+
+        <table type="CURVE" symbol="evREF_CURVE_CONF">
+            <xaxis type="AXIS_PTS" symbol="ekREF_CURVE_CONF"></xaxis>
+            <xinput type="MEASUREMENT" symbol="bsRPM"></xinput>
+        </table>
+
+
+
+</working_points>
+

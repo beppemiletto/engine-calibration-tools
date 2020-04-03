@@ -1,0 +1,42 @@
+ScreenManagement:
+    LoginPage:
+
+<LoginPage>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [10,50,10,50]
+        spacing: 20
+        
+        Label:
+            text: 'Login'
+            font_size: 18
+            halign: 'left'
+            
+            
+        TextInput:
+            id: login
+            multiline:True
+            font_size: 28
+            readonly: False
+            text: 'user'
+            on_text: root.verify()
+            
+
+        Label:
+            text: 'Password'
+            halign: 'left'
+            font_size: 18
+            
+        TextInput:
+            id: password
+            multiline:False
+            password:True
+            font_size: 28
+            text: 'passwd'
+           
+
+
+        Button:
+            text: 'Connect'
+            font_size: 24
+            on_press: root.verify()

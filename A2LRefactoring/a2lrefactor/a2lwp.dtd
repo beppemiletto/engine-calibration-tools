@@ -1,0 +1,8 @@
+<!DOCTYPE a2lwp
+[<!ELEMENT working_points (table)>
+<!ELEMENT table (xaxis,xinput,yaxis, yinput)>
+<!ELEMENT xaxis (#PCDATA)>
+<!ELEMENT yaxis (#PCDATA)>
+<!ELEMENT xinput (#PCDATA)>
+<!ELEMENT yinput (#PCDATA)>
+]>
