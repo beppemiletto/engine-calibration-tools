@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<working_points release="L6.02.05">
-
+<working_points release="L6.02.05" nowpdefstring="NO_INPUT_QUANTITY">
+<!-- attribute nowpdefstring at root level must be the keyword to replace in A2L records
+  symbol definition. Literally nowpdefstring stands for NO Working Points DEFinition STRING -->
         <table type="MAP" symbol="jtADV_NORMAL">
             <xaxis type="AXIS_PTS" symbol="jkETASP_2"></xaxis>
             <xinput type="MEASUREMENT" symbol="asEtasp"></xinput>
@@ -20,6 +21,34 @@
             <xinput type="MEASUREMENT" symbol="bsRPM"></xinput>
             <yaxis type="AXIS_PTS" symbol="ekCMU2QAIR_OBJCM"></yaxis>
             <yinput type="MEASUREMENT" symbol="esCmuAirLamAdTst"></yinput>
+        </table>
+
+        <table type="MAP" symbol="atETSP_FARF">
+            <xaxis type="AXIS_PTS" symbol="akETSP_THROT"></xaxis>
+            <xinput type="MEASUREMENT" symbol="zsPotenzThr"></xinput>
+            <yaxis type="AXIS_PTS" symbol="akRPM_6"></yaxis>
+            <yinput type="MEASUREMENT" symbol="bsRPM"></yinput>
+        </table>
+
+        <table type="MAP" symbol="atETSP_FARF_PRE">
+            <xaxis type="AXIS_PTS" symbol="akETSP_THROT_PRE"></xaxis>
+            <xinput type="MEASUREMENT" symbol="hsThrotRefPerc"></xinput>
+            <yaxis type="AXIS_PTS" symbol="akRPM_6_PRE"></yaxis>
+            <yinput type="MEASUREMENT" symbol="bsRPM"></yinput>
+        </table>
+
+        <table type="MAP" symbol="htPOBJ_CARAT_THR">
+            <xaxis type="AXIS_PTS" symbol="hkPOBJ_CARATHR_B"></xaxis>
+            <xinput type="MEASUREMENT" symbol="hkPOBJ_CARATHR_B"></xinput>
+            <yaxis type="AXIS_PTS" symbol="hkPOBJ_CARATHR_Q"></yaxis>
+            <yinput type="MEASUREMENT" symbol="hsPobjCarathrQ"></yinput>
+        </table>
+
+        <table type="MAP" symbol="htPTAIR_GAIN_THR">
+            <xaxis type="AXIS_PTS" symbol="hkPTAIR_GAINTHRT"></xaxis>
+            <xinput type="MEASUREMENT" symbol="zsTAir"></xinput>
+            <yaxis type="AXIS_PTS" symbol="hkPTAIR_GAINTHRP"></yaxis>
+            <yinput type="MEASUREMENT" symbol="zsPBoost"></yinput>
         </table>
 
         <table type="CURVE" symbol="evREF_CURVE_CONF">

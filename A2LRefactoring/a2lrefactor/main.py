@@ -2,37 +2,68 @@ import sys, getopt, os
 from datetime import datetime
 import xml.etree.ElementTree as ET
 
-def duplicate_a2l(a2l_input,a2l_output, mode):
-    input_file_exist = os.path.isfile(a2l_input)
-    output_file_exist = os.path.isfile(a2l_output)
-    file2use = ''
+# global definitions
+# log file for the program execution
+now = datetime.now()
+logfname = "A2LRefactor_log_{}.txt".format(now.strftime("%Y%m%d_%H%M%S"))
+# the string for search absent Working Point specification within A2L tables definition records
+NO_WP_DEF_STR = ""
 
-    if not input_file_exist:
+
+# function  duplicate_a2l(a2l_input=None, a2l_output=None, mode='O'):
+#            manage the creation of the output A2L file accrding to input A2L and user options
+# parameters:
+#             input A2L filename that must be phisycally present unless the execution of program is aborted.
+#                                             Specified with -i --ifile command line option - default None
+#             output A2L filename created if not exist.
+#                                             Specified with -o --ofile command line option  - default None
+#             overwrite mode of existing output file - 'O' overwrite , 'B' backup creation , 'M' merge nre refactor
+#                                             Specified with -m --mode command line option  - default 'O' overwrite
+# return:
+#            A2L filename (path) to be used for outputting refactor
+def duplicate_a2l(a2l_input=None, a2l_output=None, mode='O'):
+    ifile_exist = os.path.isfile(a2l_input)
+    ofile_exist = os.path.isfile(a2l_output)
+    #instantiate the output A2L filename
+    ofile2use = ''
+
+    if not ifile_exist:
         print("input file {} not found in local directory".format(a2l_input))
+        logmessage: str = "A2L input file {} not found. Execution will be terminated with status 3".format(a2l_input)
+        writelog(logfname, logmessage)
         sys.exit(3)
     else:
-        if output_file_exist:
+        if ofile_exist:
+            logmessage: str = 'The specified output file {} already exist:'.format(a2l_output)
+            writelog(logfname, logmessage)
             print('The specified output file {} already exist:'.format(a2l_output))
+            # if mode is not specified or specified incorrectly it is requested as line input stopping execution
             if not( mode.upper() in ('O', 'B', 'M')):
+                # mode not specified . enter the loop for a valid mode specification by means of keyboard input
                 done= False
                 do_once = False
             else:
+                # mode specified - loop executed once for take the correct action
                 done = True
                 do_once = True
 
             while (not done) or do_once :
                 if do_once:
+                    # mode specified - the answer is taken from mode
                     answer = mode
                     do_once = False
                 else:
+                    # mode not specified - the answer is request from keyboard input
                     answer = input("enter 'o' overwrite, 'm' keep file and merge, 'b' backup, any other key for exit:  ")
                 if answer.upper() in ('O', 'B'):
                     if  answer.upper() == 'B':
+                        # overwrite  with a backup
                         a2l_input = a2l_output
                         a2l_output += '.bak'
-                        file2use = a2l_input
+                        ofile2use = a2l_input
                     else:
-                        file2use = a2l_output
+                        # only overwrite
+                        ofile2use = a2l_output
                     print('\nDuplicating A2L {} to {}'.format(a2l_input, a2l_output),end=' --> ')
                     try:
                         with open(a2l_input, 'r') as input_file:
@@ -45,9 +76,11 @@ def duplicate_a2l(a2l_input,a2l_output, mode):
                     done=True
                 elif answer.upper() =='M':
                     print('\nLeaving existing {} for merging new refactor'.format(a2l_output))
-                    file2use = a2l_output
+                    ofile2use = a2l_output
                     done = True
                 else:
+                    logmessage = "Program terminated by user (key '{}' entered).".format(answer)
+                    writelog(logfname, logmessage)
                     print("Program terminated by user.")
                     sys.exit(0)
         else:
@@ -60,8 +93,10 @@ def duplicate_a2l(a2l_input,a2l_output, mode):
             except:
                 pass
             print("DONE")
-            file2use = a2l_output
-    return file2use
+            logmessage = "The file '{}' ready to refactoring for WP parameters.".format(a2l_output)
+            writelog(logfname, logmessage)
+            ofile2use = a2l_output
+    return ofile2use
 
 ## find_symbol:
 # search for the symbol inside the a2l file
@@ -203,9 +238,7 @@ def apply_changes2file(edit_file=None, def_buffer= None):
 
 def main(argv,name):
 
-    # open a log file for the program execution
-    now = datetime.now()
-    logfname = "A2LRefactor_log_{}.txt".format(now.strftime("%Y%m%d_%H%M%S"))
+
     logmessage = "{} - Execution started ########################################################".format(name)
     writelog(logfname,logmessage)
 
@@ -259,6 +292,10 @@ def main(argv,name):
     wp_tree = ET.parse(definitions_xmlfile)
     wp_root = wp_tree.getroot()
 
+    # read the NO WP defintion keyword to be used for search
+    global NO_WP_DEF_STR
+    NO_WP_DEF_STR = wp_root.attrib['nowpdefstring']
+
     # open the xml configuration file
     for table in wp_root:
         # log the symbol under process
@@ -287,14 +324,17 @@ def main(argv,name):
 
                 # modify the buffer to introduce wp parameters for table symbol
                 # ===============================================================
+                # 1st part of 3 - Change the Record of Main Element (the table itself) definition in A2L
+                # operates on the axis references definitions
                 symbol_change_done = [False, False]
                 xaxis_done = False
                 yaxis_done = False
                 isMAP = table.attrib['type'].upper() == 'MAP'
                 for key, line in symbol_def_buffer.items():
                     if not xaxis_done:
-                        if 'NO_INPUT_QUANTITY' in line:
-                            line[line.index('NO_INPUT_QUANTITY')] = a2l_changes['xinput']['symbol']
+                        # Search the keyword defined as WP absent specification (from XML)
+                        if NO_WP_DEF_STR in line:
+                            line[line.index(NO_WP_DEF_STR)] = a2l_changes['xinput']['symbol']
                             symbol_change_done[0] = False
                             xaxis_done = True
 
@@ -303,8 +343,8 @@ def main(argv,name):
                             xaxis_done = True
 
                     elif isMAP and xaxis_done and (not yaxis_done):
-                        if 'NO_INPUT_QUANTITY' in line:
-                            line[line.index('NO_INPUT_QUANTITY')] = a2l_changes['yinput']['symbol']
+                        if NO_WP_DEF_STR in line:
+                            line[line.index(NO_WP_DEF_STR)] = a2l_changes['yinput']['symbol']
                             symbol_change_done[1] = False
                             yaxis_done = True
                             break
@@ -313,14 +353,14 @@ def main(argv,name):
                             yaxis_done = True
                             break
 
-                # modify the file at buffer lines locations
+                # modify the file at buffer lines locations if required
                 if not symbol_change_done[0] and not symbol_change_done[1]:
                     result = apply_changes2file(edit_file, symbol_def_buffer)
                     if result:
-                        logmessage = "\t Changes applied to a2l file for symbol_PTS for Element "
+                        logmessage = "\t Changes applied to a2l file for symbol definition record of Element "
                         writelog(logfname, logmessage)
                 else:
-                    logmessage = "\t Changes not needed to a2l file for symbol_PTS for Element "
+                    logmessage = "\t Changes not needed to a2l file for symbol definition record of Element "
                     writelog(logfname, logmessage)
 
 
@@ -333,8 +373,8 @@ def main(argv,name):
                     # x axis is common to MAP and CURVE types
                     xaxis_change_done = False
                     for key, line in axis_def_buffer.items():
-                        if 'NO_INPUT_QUANTITY' in line:
-                            line[line.index('NO_INPUT_QUANTITY')] = a2l_changes['xinput']['symbol']
+                        if NO_WP_DEF_STR in line:
+                            line[line.index(NO_WP_DEF_STR)] = a2l_changes['xinput']['symbol']
                             xaxis_change_done = False
                             break
                         elif a2l_changes['xinput']['symbol'] in line:
@@ -359,8 +399,8 @@ def main(argv,name):
                         # y axis is for MAP only types
                         yaxis_change_done = False
                         for key, line in axis_def_buffer.items():
-                            if 'NO_INPUT_QUANTITY' in line:
-                                line[line.index('NO_INPUT_QUANTITY')] = a2l_changes['yinput']['symbol']
+                            if NO_WP_DEF_STR in line:
+                                line[line.index(NO_WP_DEF_STR)] = a2l_changes['yinput']['symbol']
                                 yaxis_change_done = False
                                 break
                             elif a2l_changes['yinput']['symbol'] in line:
