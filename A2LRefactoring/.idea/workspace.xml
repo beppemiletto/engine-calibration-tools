@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1fc8d4dd-6ea9-4a35-b181-fc324e09473b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/A2LRefactoring.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a2lrefactor/HDS9_a2lwp_definitions.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a2lrefactor/Hds9.a2l" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a2lrefactor/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a2lrefactor/a2lwp.dtd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/a2lrefactor/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/gmiletto.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/venv/Lib/site-packages/easy-install.pth" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/venv/Lib/site-packages/pip-19.0.3-py3.7.egg/EGG-INFO/PKG-INFO" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/venv/Lib/site-packages/pip-19.0.3-py3.7.egg/EGG-INFO/SOURCES.txt" afterDir="false" />
@@ -387,20 +378,8 @@
       <change afterPath="$PROJECT_DIR$/venv/Scripts/vcruntime140.dll" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/venv/Scripts/winsound.pyd" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/venv/pyvenv.cfg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HDS9Knock/.idea/HDS9Knock.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HDS9Knock/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HDS9Knock/Pong/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HDS9Knock/Pong/login.kv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HDS9Knock/Pong/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HDS9Knock/Pong/pong.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HDS9Knock/venv/Lib/site-packages/easy-install.pth" beforeDir="false" afterPath="$PROJECT_DIR$/../HDS9Knock/venv/Lib/site-packages/easy-install.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HDS9Knock/venv/Lib/site-packages/setuptools-40.8.0-py3.7.egg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HDS9Knock/venv/Scripts/easy_install-3.7-script.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HDS9Knock/venv/Scripts/easy_install-3.7.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../HDS9Knock/venv/Scripts/easy_install-3.7.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HDS9Knock/venv/Scripts/easy_install-3.7.exe.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HDS9Knock/venv/Scripts/easy_install-script.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HDS9Knock/venv/Scripts/easy_install.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../HDS9Knock/venv/Scripts/easy_install.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HDS9Knock/venv/Scripts/easy_install.exe.manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2lrefactor/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/a2lrefactor/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -413,28 +392,33 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/a2lrefactor/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="383" selection-start-line="383" selection-end-line="383" />
+            <state relative-caret-position="-1019">
+              <caret line="336" column="43" selection-start-line="336" selection-start-column="43" selection-end-line="336" selection-end-column="43" />
               <folding>
-                <element signature="e#0#6#0" expanded="true" />
-                <element signature="e#110#2423#0" />
+                <element signature="e#358#476#0" />
+                <element signature="e#1294#4900#0" />
+                <element signature="e#5152#7418#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/xml/etree/ElementTree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="230">
+              <caret line="586" selection-start-line="586" selection-end-line="586" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/a2lrefactor/HDS9_a2lwp_definitions.xml">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -465,18 +449,28 @@
       <find>atRES_</find>
       <find>jtADV</find>
       <find>jtADV_NORMA</find>
-      <find>symbol</find>
       <find>jkE</find>
       <find>xaxis</find>
       <find>axis_def_buffer</find>
+      <find>logf</find>
+      <find>symbol_PTS</find>
+      <find>'NO_INPUT_QUANTITY'</find>
+      <find>symbol</find>
     </findStrings>
     <replaceStrings>
-      <replace>axis_pts</replace>
       <replace>symbol</replace>
       <replace>symbol_def_buffer</replace>
+      <replace>symbol definition record</replace>
+      <replace>NOWPDEFINITIONSEEKSTR</replace>
+      <replace>axis_pts</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="beppemiletto &lt;beppe.miletto@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
@@ -489,8 +483,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1950" />
-    <option name="y" value="40" />
+    <option name="x" value="1988" />
+    <option name="y" value="27" />
     <option name="width" value="1790" />
     <option name="height" value="988" />
   </component>
@@ -500,6 +494,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -516,7 +511,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -554,7 +548,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/a2lrefactor/main.py" />
-      <option name="PARAMETERS" value="-d HDS9_a2lwp_definitions.xml -i Hds9.a2l -o Hds9WpAll.a2l -m O" />
+      <option name="PARAMETERS" value="-d HDS9_a2lwp_definitions.xml -i Hds9.a2l -o Hds9Wp.a2l -m O" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="true" />
       <option name="MODULE_MODE" value="false" />
@@ -574,17 +568,33 @@
       <option name="presentableId" value="Default" />
       <updated>1585774893547</updated>
     </task>
+    <task id="LOCAL-00001" summary="release 0.1">
+      <created>1585875553810</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585875553810</updated>
+    </task>
+    <task id="LOCAL-00002" summary="release 0.2">
+      <created>1585910611958</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1585910611958</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1950" y="40" width="1790" height="988" extended-state="0" />
+    <frame x="1727" y="176" width="1790" height="988" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21518265" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21518265" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32982457" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32982457" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.16023391" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.46549708" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -598,16 +608,12 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="release 0.1" />
+    <MESSAGE value="release 0.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="release 0.2" />
+  </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/a2lrefactor/main.py</url>
-          <line>316</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="len(lines)" language="Python" />
@@ -687,20 +693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/xml/etree/ElementTree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="608" selection-start-line="608" selection-end-line="608" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/a2lrefactor/a2lwp.dtd">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/a2lrefactor/Hds9.a2l">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -722,16 +714,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/a2lrefactor/a2lwp.dtd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/a2lrefactor/HDS9_a2lwp_definitions.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/xml/etree/ElementTree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="586" selection-start-line="586" selection-end-line="586" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a2lrefactor/A2LRefactor_log_20200404_012606.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/a2lrefactor/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="383" selection-start-line="383" selection-end-line="383" />
+        <state relative-caret-position="-1019">
+          <caret line="336" column="43" selection-start-line="336" selection-start-column="43" selection-end-line="336" selection-end-column="43" />
           <folding>
-            <element signature="e#0#6#0" expanded="true" />
-            <element signature="e#110#2423#0" />
+            <element signature="e#358#476#0" />
+            <element signature="e#1294#4900#0" />
+            <element signature="e#5152#7418#0" />
           </folding>
         </state>
       </provider>

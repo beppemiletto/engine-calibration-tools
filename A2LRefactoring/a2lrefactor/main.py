@@ -10,8 +10,9 @@ logfname = "A2LRefactor_log_{}.txt".format(now.strftime("%Y%m%d_%H%M%S"))
 NO_WP_DEF_STR = ""
 
 
+# ====================================================================================================================
 # function  duplicate_a2l(a2l_input=None, a2l_output=None, mode='O'):
-#            manage the creation of the output A2L file accrding to input A2L and user options
+#            Manages the creation of the output A2L file accrding to input A2L and user options
 # parameters:
 #             input A2L filename that must be phisycally present unless the execution of program is aborted.
 #                                             Specified with -i --ifile command line option - default None
@@ -98,22 +99,30 @@ def duplicate_a2l(a2l_input=None, a2l_output=None, mode='O'):
             ofile2use = a2l_output
     return ofile2use
 
-## find_symbol:
-# search for the symbol inside the a2l file
+
+# ====================================================================================================================
+# function find_symbol(fname=None, symbol= None, buffer_size= 5000000):
+#              Searches for the table (MAP or CURVE) symbol inside the a2l file, locate the whole definition record,
+#                     build a dictionary as buffer with all rows included into definition record
+# parameters:
+#             fname - A2L filename of the target A2L to be refactored - no default values
+#             symbol - the string representing the symbol to be searched  - no default values
+#             buffer_size - the length in bytes of the file lines to be read in one shot - default 5000000
 # return:
-#        line number of symbol record
-#        dictionary as buffer of line of the complete symbol definition)
+#             integer - number of the line in A2L file where the symbol record start
+#             dictionary -  buffer of line of the complete symbol definition
 def find_symbol(fname=None, symbol= None, buffer_size= 5000000):
     found = False
-    # open the file to be queried and edited and read all lines
+    # open the target A2L file
     with open(fname,'r') as fp:
         lines = fp.readlines(buffer_size)
-        # search for symbol by symbol
+        # search for symbol by symbol iterating through the whole read lines
         for line_number , line in enumerate(lines):
             if symbol in line:
                 line_position = line_number
                 # if symbol is found, verify the correct syntax of the a2l line
                 syntax_verified = False
+                # split the line into single text words for reading and check the right syntax
                 for word_position, word in enumerate(line.lstrip(' ').split(' ')):
                     if (word_position == 0) :
                         # omitting the trailing blanks the keyword '/begin' must be first meta-command in line
@@ -133,11 +142,13 @@ def find_symbol(fname=None, symbol= None, buffer_size= 5000000):
                         break
 
                 break
-
+        
         # if symbol found and syntax verified a buffer with the symbol complete definition is created
+        # buffer includes the lines of A2L file
+        # 1st starting with /begin CHARACTERISTIC
+        # last starting with /end CHARACTERISTIC syntax
         if found and syntax_verified:
             symbol_def_buffer = {}
-            syntax_verified = False
             symbol_def_buffer[str(line_position)] = lines[line_position].split(' ')
             symbol_def_line_count = 1
             end = False
@@ -148,19 +159,27 @@ def find_symbol(fname=None, symbol= None, buffer_size= 5000000):
                     end = True
                 else:
                     symbol_def_line_count +=1
+    # return the first line position in A2L file and the complete buffer of symbol definition
     return line_position, symbol_def_buffer
 
-## find_axis_pts:
-# search for the axis_pts inside the a2l file
+
+# ====================================================================================================================
+# function find_axis_pts(fname=None, axis_pts= None, buffer_size= 5000000):
+#              Searches for the table's (MAP or CURVE) axis_pts inside the a2l file, locate the whole definition record,
+#                     build a dictionary as buffer with all rows included into definition record
+# parameters:
+#             fname - A2L filename of the target A2L to be refactored - no default values
+#             axis_pts - the string representing the axis_pts to be searched  - no default values
+#             buffer_size - the length in bytes of the file lines to be read in one shot - default 5000000
 # return:
-#        line number of axis_pts record
-#        dictionary as buffer of line of the complete axis_pts definition)
+#             integer - number of the line in A2L file where the axis_pts record start
+#             dictionary -  buffer of line of the complete axis_pts definition
 def find_axis_pts(fname=None, axis_pts= None, buffer_size= 5000000):
     found = False
-    # open the file to be queried and edited and read all lines
+    # open the target A2L file to be queried and edited and read all lines
     with open(fname,'r') as fp:
         lines = fp.readlines(buffer_size)
-        # search for axis_pts by axis_pts
+        # search for axis_pts by axis_pts label (the symbol)
         for line_number , line in enumerate(lines):
             if axis_pts in line:
                 line_position = line_number
@@ -202,49 +221,74 @@ def find_axis_pts(fname=None, axis_pts= None, buffer_size= 5000000):
                     axis_pts_def_line_count +=1
     return line_position, axis_pts_def_buffer
 
-
-
+# ------------------------------------------------------------------------------------------------------------
+# function writelog(logfname, message):
+# write a message to the log file leaded by the timestamp 
+# parameters:
+#              fname   - the log filename where write the message
+#              message - the log message to be written
+# return none
 def writelog(logfname, message):
     now = datetime.now()
     with open(logfname,"a+") as lfp:
-        lfp.write("{}\t-\t{}\n".format(now,message))
+        lfp.write("{}\t-\t{}\n".format(now, message))
 
 
+# ====================================================================================================================
+# function apply_changes2file(edit_file=None, def_buffer= None):
+#              Searches for the line number in MAP or CURVE identified in the modified buffer
+#                     replace the lines with those included in the buffer 
+# parameters:
+#             fname - A2L filename of the target A2L to be refactored - no default values
+#             dictionary - the buffer containing the modified lines - no default values
+# return:
+#             boolean - the result of the file save after changing are applied
 def apply_changes2file(edit_file=None, def_buffer= None):
+    # the buffer is a dictionary whose keys are the line number position in A2L file
+    # the line replacing is done in absolute (the modified lines are placed in the same positions of original ones) 
+    # since no alteration of line number is required by change for WP
     lines2change_keys  = def_buffer.keys()
     lines2change = []
+    # a sorted list is created from dictionary keys to be sure of sequentially access the lines in A2L file
     for key in lines2change_keys:
         lines2change.append(int(key))
     lines2change.sort()
-    with open('a2ltemp.tmp', "w+") as fpo:
-        fpi = open(edit_file, "r")
+    # operates the line substitution after open and globally read the A2L file
+    # the write is done on a temporary file buffer
+    with open('a2ltemp.tmp', "w+") as fpo:          # the temporary file opened for write
+        fpi = open(edit_file, "r")                  # the target file to be modified opened for read
         lines = fpi.readlines()
         fpi.close()
-
+        # lines from 0 to the n-1 line where n is the position of the first line to be replaced are merely copied
+        # the index 0 of the list contains n
         for i in range(lines2change[0]):
             fpo.write(lines[i])
+        # the loop of insertion of the buffer
         for i in range(lines2change[0], lines2change[-1]+1, 1):
-            line = " ".join(def_buffer[str(i)])
+            line = " ".join(def_buffer[str(i)])     # complete line is rebuilt starting from all words saved in dict.
             fpo.write(line)
         del line
         restart_i = i+1
+        # remaining line after buffer position are merly copied 
         for i in range(restart_i, len(lines), 1):
             fpo.write(lines[i])
+    # once finished the lines substitution the original not modified file is deleted
     os.remove(edit_file)
+    # the modified copy of the A2L is renamed according to target filename 
     os.rename('a2ltemp.tmp', edit_file)
+    # the correct operation is asserted by the verification that the target file is checked by OS 
     result = os.path.isfile(edit_file)
     return result
 
 
+# =====================================================================================================================
+# Application main function
 def main(argv,name):
-
-
     logmessage = "{} - Execution started ########################################################".format(name)
     writelog(logfname,logmessage)
 
-
     # instantiates empty command line arguments parameters
-    definitions_xmlfile = ''
+    definitions_xmlfile: str = ''
     input_a2lfile = ''
     output_a2lfile = ''
     write_mode = ''
@@ -289,8 +333,21 @@ def main(argv,name):
     logmessage = "defined target file: {}".format(edit_file)
     writelog(logfname,logmessage)
 
-    wp_tree = ET.parse(definitions_xmlfile)
-    wp_root = wp_tree.getroot()
+    # read the xml definition file
+    # if file not found excution is aborted
+    try:
+        wp_tree = ET.parse(definitions_xmlfile)
+        wp_root = wp_tree.getroot()
+    except FileNotFoundError:
+        logmessage = "Error: xml definition file '{}' NOT FOUND.\n" \
+                     "Possibly mispelled filename or wrong path\n" \
+                     "NOTHING TO DO. Execution aborted with status(5)".format(definitions_xmlfile)
+        writelog(logfname, logmessage)
+        print(logmessage)
+    finally:
+        sys.exit(5)
+
+
 
     # read the NO WP defintion keyword to be used for search
     global NO_WP_DEF_STR
