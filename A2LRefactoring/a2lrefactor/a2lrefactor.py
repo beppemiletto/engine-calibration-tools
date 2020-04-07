@@ -1,3 +1,18 @@
+""" a2lrefactor - A2L file refactoring script for inserting Working Points definitions
+
+This script allows the user to change the Mathworks Tool Chain Automatically Generated A2L file, that are not
+provided with definition of Working Points for Vector Canape or ETAS Inca, adding the information needed.
+
+This tool needs:
+
+* an origin   A2L, usually the one generated automatically by the SW development toolchain
+* a target refactored (the output) A2L file
+* an xml file with information to be included in origin A2L to get the target one
+* an overwrite mode specification in case of already existing output filename
+
+All needed element are passed as argument on the command line.
+
+"""
 import sys
 import getopt
 import os
