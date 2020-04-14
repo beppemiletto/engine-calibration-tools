@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE working_points [
+        <!ELEMENT working_points (table)*>
+        <!ATTLIST working_points
+                release CDATA #REQUIRED
+                nowpdefstring CDATA #REQUIRED
+                symbol_prefix CDATA #REQUIRED
+                axis_pts_prefix CDATA #REQUIRED
+                measure_prefix CDATA #REQUIRED
+                declaration_prefix CDATA #REQUIRED
+                declaration_suffix CDATA #REQUIRED>
+        <!ELEMENT table (xaxis|xinput|yaxis|yinput)*>
+        <!ATTLIST table
+                symbol CDATA #REQUIRED
+                type CDATA #REQUIRED>
+        <!ELEMENT xaxis (#PCDATA)>
+        <!ATTLIST xaxis
+                symbol CDATA #REQUIRED
+                type CDATA #REQUIRED>
+        <!ELEMENT xinput (#PCDATA)>
+        <!ATTLIST xinput
+                symbol CDATA #REQUIRED
+                type CDATA #REQUIRED>
+        <!ELEMENT yaxis (#PCDATA)>
+        <!ATTLIST yaxis
+                symbol CDATA #REQUIRED
+                type CDATA #REQUIRED>
+        <!ELEMENT yinput (#PCDATA)>
+        <!ATTLIST yinput
+                symbol CDATA #REQUIRED
+                type CDATA #REQUIRED>
+        ]>
+<working_points release="L6.02.05" nowpdefstring="NO_INPUT_QUANTITY" symbol_prefix="CHARACTERISTIC"
+        axis_pts_prefix="AXIS_PTS" measure_prefix="MEASUREMENT" declaration_prefix="/begin" declaration_suffix="/end">
+<!-- attribute nowpdefstring at root level must be the keyword to replace in A2L records
+""" XML file for definition of instructions to a2lrefactor.py
+The XML file is defined by a2lwp.dtd
+"""
+  symbol definition. Literally nowpdefstring stands for NO Working Points DEFinition STRING -->
+        <table type="MAP" symbol="jtADV_NORMAL">
+            <xaxis type="AXIS_PTS" symbol="jkETASP_2"></xaxis>
+            <xinput type="MEASUREMENT" symbol="asEtasp"></xinput>
+            <yaxis type="AXIS_PTS" symbol="jkRPM_9"></yaxis>
+            <yinput type="MEASUREMENT" symbol="bsRPM"></yinput>
+        </table>
+
+        <table type="MAP" symbol="atRES_ASPIR">
+            <xaxis type="AXIS_PTS" symbol="akRPM_4"></xaxis>
+            <xinput type="MEASUREMENT" symbol="bsRPM"></xinput>
+            <yaxis type="AXIS_PTS" symbol="akMAP_2"></yaxis>
+            <yinput type="MEASUREMENT" symbol="zsMap"></yinput>
+        </table>
+
+        <table type="CURVE" symbol="evREF_CURVE_CONF">
+            <xaxis type="AXIS_PTS" symbol="ekREF_CURVE_CONF"></xaxis>
+            <xinput type="MEASUREMENT" symbol="bsRPM"></xinput>
+        </table>
+
+</working_points>
+

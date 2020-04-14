@@ -1,14 +1,27 @@
-""" a2lrefactor - A2L file refactoring script for inserting Working Points definitions
+"""
+a2lrefactor - A2L file refactoring script for inserting Working Points definitions
+==================================================================================
 
 This script allows the user to change the Mathworks Tool Chain Automatically Generated A2L file, that are not
 provided with definition of Working Points for Vector Canape or ETAS Inca, adding the information needed.
 
-This tool needs:
+This tool needs command line arguments:
+---------------------------------------
 
-* an origin   A2L, usually the one generated automatically by the SW development toolchain
-* a target refactored (the output) A2L file
-* an xml file with information to be included in origin A2L to get the target one
-* an overwrite mode specification in case of already existing output filename
+    -i arg  a2lfilename: the starting A2L, usually generated automatically by the SW development toolchain
+
+    -o arg  a2lfilename: the target refactored (the output) A2L file
+
+    -d arg  xmlfilename: an xml file with information to be included in origin A2L to get the target one
+
+    -m arg  mode: an overwrite mode specification in case of already existing output a2lfilename
+
+:return: sys exit mode
+:rtype: int
+
+:example:
+
+`python a2lrefactor.py -i a2l_input.a2l -o a2l_output.a2l -d xml_definition.xml -m O`
 
 All needed element are passed as argument on the command line.
 
@@ -18,6 +31,7 @@ import getopt
 import os
 from datetime import datetime
 import xml.etree.ElementTree as ET
+
 
 # global definitions
 # log file for the program execution
@@ -44,18 +58,37 @@ MEASUREMENT_DECLARATION_STR = ""
 
 
 # ====================================================================================================================
-# function  duplicate_a2l(a2l_input=None, a2l_output=None, mode='O'):
-#            Manages the creation of the output A2L file according to input A2L and user options
-# parameters:
-#             input A2L filename that must be physically present unless the execution of program is aborted.
-#                                             Specified with -i --ifile command line option - default None
-#             output A2L filename created if not exist.
-#                                             Specified with -o --ofile command line option  - default None
-#             overwrite mode of existing output file - 'O' overwrite , 'B' backup creation , 'M' merge nre refactor
-#                                             Specified with -m --mode command line option  - default 'O' overwrite
-# return:
-#            A2L filename (path) to be used for outputting refactor
+# # function  duplicate_a2l(a2l_input=None, a2l_output=None, mode='O'):
+# #            Manages the creation of the output A2L file according to input A2L and user options
+# # parameters:
+# #             input A2L filename that must be physically present unless the execution of program is aborted.
+# #                                             Specified with -i --ifile command line option - default None
+# #             output A2L filename created if not exist.
+# #                                             Specified with -o --ofile command line option  - default None
+# #             overwrite mode of existing output file - 'O' overwrite , 'B' backup creation , 'M' merge nre refactor
+# #                                             Specified with -m --mode command line option  - default 'O' overwrite
+# # return:
+# #            A2L filename (path) to be used for outputting refactor
 def duplicate_a2l(a2l_input=None, a2l_output=None, mode='O'):
+    """ function  duplicate_a2l(a2l_input=None, a2l_output=None, mode='O'):
+    This function manages the creation of the output A2L file according to input A2L and user options
+
+    Parameters
+
+    :param input A2L filename:
+    :type string: starting A2L filename that must be physically present unless the execution of program is aborted.
+
+    Specified with -i --ifile command line option - default None
+
+    :param output A2L filename:
+    :type string: output A2L filename created if not exist. Specified with -o --ofile command line option - default None
+
+
+    # #             overwrite mode of existing output file - 'O' overwrite , 'B' backup creation , 'M' merge nre refactor
+    # #                                             Specified with -m --mode command line option  - default 'O' overwrite
+    # # return:
+    # #            A2L filename (path) to be used for outputting refactor
+    """
     ifile_exist = os.path.isfile(a2l_input)
     ofile_exist = os.path.isfile(a2l_output)
     # instantiate the output A2L filename
@@ -384,6 +417,41 @@ def apply_changes2file(edit_file=None, def_buffer=None):
     return result
 
 
+def read_att(attr_dict,element,attribute):
+    """
+    function read_att(attr_dict,element,attribute)
+    safe reads the attribute from xml definition file
+
+    :param attr_dict: the dictionary including the attribute key and value
+
+    :param element: string value of parent element of attribute
+
+    :param attribute: string tag of attribute (dict key) to read
+
+    :return value: string <the attribute value if normal, None if error found>
+    :return status: bool <true if normal, false if errors found>
+    :return e: string <None if normal, Description of error if errors found>
+    """
+    try:
+        value =attr_dict[element][attribute]
+        status = 1
+        e = None
+    except KeyError:
+        value = None
+        status = 0
+        e = "not present."
+
+    if value == '':
+        value == None
+        status = 0
+        e = "missing value."
+
+    return value, status , e
+
+
+
+
+
 # =====================================================================================================================
 # =====================================================================================================================
 # Application main function
@@ -544,7 +612,13 @@ def main(argv, name):
                     writelog(logfname, logmessage)
 
                 # search the axis definition
-                axis_pts = a2l_changes['xaxis']['symbol']
+                axis_pts, valid, e = read_att(a2l_changes,'xaxis','symbol')
+                if not valid==1:
+                    logmessage = "### UNRECOVERABLE ERROR for {}: 'xaxis'," \
+                                 "'symbol' {}".format(table.attrib['symbol'], e)
+                    writelog(logfname, logmessage)
+                    error_counter += 1
+                    continue
                 result, axis_def_buffer = find_axis_pts(edit_file, axis_pts, 5000000)
                 if result > 0:
                     # modify the buffer to introduce wp parameters for x axis
@@ -575,7 +649,14 @@ def main(argv, name):
 
                 # if element is a MAP the y axis must be processed as well
                 if isMAP:
-                    axis_pts = a2l_changes['yaxis']['symbol']
+                    # axis_pts = a2l_changes['yaxis']['symbol']
+                    axis_pts, valid, e = read_att(a2l_changes, 'yaxis', 'symbol')
+                    if not valid == 1:
+                        logmessage = "### UNRECOVERABLE ERROR for {}: 'yaxis'," \
+                                     "'symbol' {}".format(table.attrib['symbol'], e)
+                        writelog(logfname, logmessage)
+                        error_counter += 1
+                        continue
                     result, axis_def_buffer = find_axis_pts(edit_file, axis_pts, 5000000)
                     if result > 0:
                         # modify the buffer to introduce wp parameters for y axis
@@ -607,7 +688,14 @@ def main(argv, name):
                 # verifies the correct definition of inputs measurements. Can raise only warnings:
                 # the measurements can be not declared in A2L since they can be defined as internal
                 # calculation of Canape / Inca applications.
-                x_measure = a2l_changes['xinput']['symbol']
+                # x_measure = a2l_changes['xinput']['symbol']
+                x_measure, valid, e = read_att(a2l_changes,'xinput','symbol')
+                if not valid==1:
+                    logmessage = "### UNRECOVERABLE ERROR for {}: 'xinput'," \
+                                 "'symbol' {}".format(table.attrib['symbol'], e)
+                    writelog(logfname, logmessage)
+                    error_counter += 1
+                    continue
                 result = find_measurement(edit_file, x_measure)
                 if result > 0:
                     logmessage = "Measurement symbol '{}' as x input found in A2L" \
@@ -618,7 +706,14 @@ def main(argv, name):
                 writelog(logfname, logmessage)
 
                 if isMAP:
-                    y_measure = a2l_changes['yinput']['symbol']
+                    # y_measure = a2l_changes['yinput']['symbol']
+                    y_measure, valid, e = read_att(a2l_changes, 'yinput', 'symbol')
+                    if not valid == 1:
+                        logmessage = "### UNRECOVERABLE ERROR for {}: 'yinput'," \
+                                     "'symbol' {}".format(table.attrib['symbol'], e)
+                        writelog(logfname, logmessage)
+                        error_counter += 1
+                        continue
                     result = find_measurement(edit_file, y_measure)
                     if result > 0:
                         logmessage = "Measurement symbol '{}' as y input found in A2L" \
