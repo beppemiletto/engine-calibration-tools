@@ -8,7 +8,7 @@ Welcome to HDS Calibration Manual
 
 .. toctree::
    :maxdepth: 3
-   :caption: Contents:
+   :caption: Table of Contents
 
    _chapters/intro
    _chapters/gen_HDS9_general.rst
