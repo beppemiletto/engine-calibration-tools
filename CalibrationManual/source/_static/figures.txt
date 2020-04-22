@@ -1,0 +1,12 @@
+.. |logo| image:: ../_static/Metatron_logo.png
+    :height: 178
+    :width: 700
+
+.. |HDS9_large| image:: ../_static/HDS9.png
+    :height: 578
+    :width: 700
+
+.. |HDS9_small| image:: ../_static/HDS9_small.png
+    :height: 145
+    :width: 175
+

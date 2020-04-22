@@ -7,8 +7,11 @@ Welcome to HDS Calibration Manual's documentation!
 ==================================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
+
+   _chapters/intro
+   _chapters/gen_HDS9_general.rst
 
 
 
@@ -18,3 +21,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+

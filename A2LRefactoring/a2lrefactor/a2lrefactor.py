@@ -95,8 +95,11 @@ def duplicate_a2l(a2l_input=None, a2l_output=None, mode='O'):
     ofile2use = ''
 
     if not ifile_exist:
-        print("input file {} not found in local directory".format(a2l_input))
-        logmessage: str = "A2L input file {} not found. Execution will be terminated with status 3".format(a2l_input)
+        if a2l_input == '':
+            logmessage: str = "A2L input file not (correctly) specified. Execution terminated."
+        else:
+            logmessage: str = "A2L input file {} not found. Execution terminated.".format(a2l_input)
+        print(logmessage)
         writelog(logfname, logmessage)
         sys.exit(3)
     else:
@@ -471,6 +474,10 @@ def main(argv, name):
     except getopt.GetoptError:
         print('{} -d <xml_definitionsfile> -i <a2l_inputfile> -o <a2l_outputfile>'.format(name))
         sys.exit(2)
+    # if no option on the command line found print the help message (simulate option -h)
+    if len(opts) < 1:
+        opts.append(('-h', ''))
+
     opt_string = ""
     for opt, arg in opts:
         opt_string += " {} {}".format(opt, arg)
@@ -540,6 +547,10 @@ def main(argv, name):
     # instantiate the errors and warning counters
     error_counter = 0
     warning_counter = 0
+
+    element2change = len(wp_root)
+    print("Read '{}': found {} entities to be modified for WP activation.".format(definitions_xmlfile, element2change))
+
     # wp_root contains all the element <table> in the opened xml configuration file
     # main iteration through Working Points definitions
     for table in wp_root:
@@ -728,11 +739,13 @@ def main(argv, name):
                                                                                             error_counter - error_counter_old,
                                                                                             warning_counter - warning_counter_old)
         writelog(logfname, logmessage)
+        print(logmessage)
 
     logmessage = "{} - Execution ended \n" \
                  "\t\t\twith {} Errors and {} Warnings.\n " \
                  "######################################################".format(name, error_counter, warning_counter)
     writelog(logfname, logmessage)
+    print(logmessage)
 
     sys.exit(0)
 

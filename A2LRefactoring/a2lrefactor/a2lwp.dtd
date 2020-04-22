@@ -1,8 +1,27 @@
-<!DOCTYPE a2lwp
-[<!ELEMENT working_points (table)>
+<!DOCTYPE working_points [
+
+<!ELEMENT working_points (table+)>
 <!ELEMENT table (xaxis,xinput,yaxis, yinput)>
-<!ELEMENT xaxis (#PCDATA)>
-<!ELEMENT yaxis (#PCDATA)>
-<!ELEMENT xinput (#PCDATA)>
-<!ELEMENT yinput (#PCDATA)>
+<!ELEMENT xaxis EMPTY>
+<!ELEMENT yaxis EMPTY>
+<!ELEMENT xinput EMPTY>
+<!ELEMENT yinput EMPTY>
+
+<!ATTLIST working_points release CDATA #IMPLIED>
+<!ATTLIST working_points nowpdefstring CDATA #REQUIRED>
+<!ATTLIST working_points symbol_prefix CDATA #REQUIRED>
+<!ATTLIST working_points axis_pts_prefix CDATA #REQUIRED>
+<!ATTLIST working_points measure_prefix CDATA #REQUIRED>
+<!ATTLIST working_points declaration_prefix CDATA #REQUIRED>
+<!ATTLIST working_points declaration_suffix CDATA #REQUIRED>
+<!ATTLIST table type CDATA #REQUIRED>
+<!ATTLIST table symbol CDATA #REQUIRED>
+<!ATTLIST xaxis type CDATA #REQUIRED>
+<!ATTLIST xaxis symbol CDATA #REQUIRED>
+<!ATTLIST xinput type CDATA #REQUIRED>
+<!ATTLIST xinput symbol CDATA #REQUIRED>
+<!ATTLIST yaxis type CDATA #IMPLIED>
+<!ATTLIST yaxis symbol CDATA #IMPLIED>
+<!ATTLIST yinput type CDATA #IMPLIED>
+<!ATTLIST yinput symbol CDATA #IMPLIED>
 ]>

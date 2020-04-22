@@ -96,9 +96,9 @@
 
         <table type="MAP" symbol="htPOBJ_CARAT_THR">
             <xaxis type="AXIS_PTS" symbol="hkPOBJ_CARATHR_B"></xaxis>
-            <xinput type="MEASUREMENT" symbol="hkPOBJ_CARATHR_B"></xinput>
+            <xinput type="MEASUREMENT" symbol="hsBeta"></xinput>
             <yaxis type="AXIS_PTS" symbol="hkPOBJ_CARATHR_Q"></yaxis>
-            <yinput type="MEASUREMENT" symbol="hsPobjCarathrQ"></yinput>
+            <yinput type="MEASUREMENT" symbol="NO_INPUT_QUANTITY"></yinput>
         </table>
 
         <table type="MAP" symbol="htPTAIR_GAIN_THR">

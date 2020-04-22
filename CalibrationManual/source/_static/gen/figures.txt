@@ -1,0 +1,42 @@
+.. |gen_010| image:: ../_static/gen/gen_010.png
+    :height: 480
+    :width: 664
+
+.. |gen_020| image:: ../_static/gen/gen_020.png
+    :height: 422
+    :width: 700
+
+.. |gen_030| image:: ../_static/gen/gen_030.png
+    :height: 390
+    :width: 700
+
+.. |gen_040| image:: ../_static/gen/gen_040.png
+    :height: 148
+    :width: 700
+
+.. |gen_050| image:: ../_static/gen/gen_050.png
+    :height: 153
+    :width: 700
+
+.. |gen_060| image:: ../_static/gen/gen_060.png
+    :height: 260
+    :width: 700
+
+.. |gen_070| image:: ../_static/gen/gen_070.png
+    :height: 378
+    :width: 700
+    :target: ../_static/gen/gen_070_full.png
+
+.. |gen_080| image:: ../_static/gen/gen_080.png
+    :height: 397
+    :width: 700
+    :target: ../_static/gen/gen_080_full.png
+
+.. |gen_085| image:: ../_static/gen/gen_085.png
+    :height: 313
+    :width: 700
+
+.. |gen_090| image:: ../_static/gen/gen_090.png
+    :height: 436
+    :width: 700
+    :target: ../_static/gen/gen_090_full.png
