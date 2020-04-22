@@ -149,7 +149,7 @@ The final value of the ignition advance that is applied to each TDC is the resul
 
 4. *Dynamic correction for fast idle control* - in the yellow field in the figure - The idle speed control strategy uses the spark advance as a quick actuation for torque variations.
 
-5. *Dynamic correction for detonation control* - in the orange field in the figure - The strategy of detonation control uses variations of the ignition advance calculated cylinder by cylinder in order to homogenise the optimized combustion between the cylinders near the maximum Torque Output.
+5. *Dynamic correction for knocking control* - in the orange field in the figure - The strategy of knocking control uses variations of the ignition advance calculated cylinder by cylinder in order to homogenise the optimized combustion between the cylinders near the maximum Torque Output.
 
 
 The other main functions
