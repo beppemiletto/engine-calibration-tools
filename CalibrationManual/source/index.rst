@@ -12,7 +12,7 @@ Welcome to HDS Calibration Manual
 
    _chapters/intro
    _chapters/gen_HDS9_general.rst
-
+   _chapters/sys_HDS9_instrumetation.rst
 
 
 Indices and tables
