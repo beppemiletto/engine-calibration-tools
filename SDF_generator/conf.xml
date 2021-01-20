@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diag_lines hw_version = "HDS9.V1" sw_release = "L6.02.05" general_diag_seek_pattern ="_AUTOD" symbol_prefix="CHARACTERISTIC"
+         declaration_prefix="/begin" declaration_suffix="/end">
+
+    <diag type="STD" line_seek_pattern="SPO">
+            <task type="time" value="100"></task>
+            <priority value="80" ></priority>
+            <automa type="B" conf2dev_seek="_CAL.usrConf2Deval" deb2conf_seek="_CAL.usrDeb2Conf" filt2conf_seek="_CAL.usrFilt2Conf" inconfold_seek="_CAL.usrInConfOld" wuccntinit_seek="_CAL.usrWucCntIni" step_seek="_CAL.usrStep"></automa>
+            <adia adia_seek="_CAL.xFlg.AdiaConfWord"></adia>
+            <gsec gsec_seek="_GSEC"></gsec>
+            <vs vssymbol="dsSPO_VS"></vs>
+            <DTC UDS="P0520" DM1="21">
+                <symptom FMI_UDS="15" FMI_DM1="03">
+                    <definition text_short="OC_OR_SC_TO_BATTERY" text_long="Open Circuit or Short Circuit to Battery Voltage"></definition>
+                    <fault_check_test condition="zsKey=1 and dsSPO_AUTOD=1 and (bsVSx_ErrSt != DEBOUNCING and bsVSx_ErrSt != CONFIRMED_OLD and bsVSx_ErrSt != CONFIRMED )" algorithm="dsPOilCk > dsSPO_POILV_ORH" threshold_par="dsSPO_POILV_ORH" type="scalar"></fault_check_test>
+                    <root_cause text="Wiring harness (connections between sensor and : Gnd, 5V,ECU) Oil Pressure sensor"></root_cause>
+                    <repair_instruction text="1. Check wiring harness (connections between sensor and : Gnd(A12), 5V(A09),ECU(A7)) 2. Replace Oil Pressure sensor "></repair_instruction>
+                </symptom>
+
+                <symptom FMI_UDS="11" FMI_DM1="04">
+                    <definition text_short="SC_TO_GND" text_long="Short Circuit to Ground"></definition>
+                    <fault_check_test condition="zsKey=1 and dsSPO_AUTOD=1 and (bsVSx_ErrSt != DEBOUNCING and bsVSx_ErrSt != CONFIRMED_OLD and bsVSx_ErrSt != CONFIRMED )" algorithm="dsPOilCk lower than dsSPO_POILV_ORL" threshold_par="dsSPO_POILV_ORL" type="scalar"></fault_check_test>
+                    <root_cause text="Wiring harness (connections between sensor and : Gnd, 5V,ECU) Oil Pressure sensor "></root_cause>
+                    <repair_instruction text="1. Check wiring harness (connections between sensor and : Gnd(A12), 5V(A09),ECU(A7)) 2. Replace Oil Pressure sensor "></repair_instruction>
+                </symptom>
+
+                <symptom FMI_UDS="79" FMI_DM1="02">
+                    <definition text_short="ALIM_KO" text_long="Power supply (Vref) Off - KO"></definition>
+                    <fault_check_test condition="zsKey=1 and dsSPO_AUTOD=1 " algorithm="bsVSx_ErrSt==CONFIRMED and dsSPO_AUTOD=1" threshold_par="dsSPO_POILV_ORL" type="scalar"></fault_check_test>
+                    <root_cause text="Wiring harness (connections between sensor and 5V from ECU) Oil Pressure sensor "></root_cause>
+                    <repair_instruction text="1. Check wiring harness (connections between sensor and 5V(A09) from ECU) 2. Replace Oil Pressure sensor "></repair_instruction>
+                </symptom>
+
+            </DTC>
+        </diag>
+
+        <diag type="STD" line_seek_pattern="STA">
+            <task type="time" value="100"></task>
+            <priority value="80" ></priority>
+            <automa type="B" conf2dev_seek="_CAL.usrConf2Deval" deb2conf_seek="_CAL.usrDeb2Conf" filt2conf_seek="_CAL.usrFilt2Conf" inconfold_seek="_CAL.usrInConfOld" wuccntinit_seek="_CAL.usrWucCntIni" step_seek="_CAL.usrStep"></automa>
+            <adia adia_seek="_CAL.xFlg.AdiaConfWord"></adia>
+            <gsec gsec_seek="_GSEC"></gsec>
+            <vs vssymbol="na"></vs>
+            <DTC UDS="P0110" DM1="11">
+                <symptom FMI_UDS="15" FMI_DM1="03">
+                    <definition text_short="OC_OR_SC_TO_BATTERY" text_long="Open Circuit or Short Circuit to Battery Voltage"></definition>
+                    <fault_check_test condition="zsKey=1 and dsSTA_AUTOD=1 " algorithm="dsTAirCk > dsSTA_TAIRV_ORH" threshold_par="dsSTA_TAIRV_ORH" type="scalar"></fault_check_test>
+                    <root_cause text="Wiring harness (connections between sensor and : Gnd, 5V,ECU) Intake Manifold Air Temperature sensor"></root_cause>
+                    <repair_instruction text="1. Check wiring harness (connections between sensor and : Gnd (B19), 5V(B33),ECU(B14)) 2. Replace Intake Manifold Temperature sensor "></repair_instruction>
+                </symptom>
+
+                <symptom FMI_UDS="11" FMI_DM1="04">
+                    <definition text_short="SC_TO_GND" text_long="Short Circuit to Ground"></definition>
+                    <fault_check_test condition="zsKey=1 and dsSTA_AUTOD=1 " algorithm="dsTAirCk lower than dsSTA_TAIRV_ORL" threshold_par="dsSTA_TAIRV_ORL" type="scalar"></fault_check_test>
+                    <root_cause text="Wiring harness (connections between sensor and : Gnd, 5V,ECU) Intake Manifold Air Temperature sensor "></root_cause>
+                    <repair_instruction text="1. Check wiring harness (connections between sensor and : Gnd (B19), 5V(B33),ECU(B14)) 2. Replace Intake Manifold Temperature sensor "></repair_instruction>
+                </symptom>
+            </DTC>
+        </diag>
+
+        <diag type="STD" line_seek_pattern="STH">
+            <task type="time" value="100"></task>
+            <priority value="80" ></priority>
+            <automa type="B" conf2dev_seek="_CAL.usrConf2Deval" deb2conf_seek="_CAL.usrDeb2Conf" filt2conf_seek="_CAL.usrFilt2Conf" inconfold_seek="_CAL.usrInConfOld" wuccntinit_seek="_CAL.usrWucCntIni" step_seek="_CAL.usrStep"></automa>
+            <adia adia_seek="_CAL.xFlg.AdiaConfWord"></adia>
+            <gsec gsec_seek="_GSEC"></gsec>
+            <vs vssymbol="na"></vs>
+            <DTC UDS="P0115" DM1="16">
+                <symptom FMI_UDS="15" FMI_DM1="03">
+                    <definition text_short="OC_OR_SC_TO_BATTERY" text_long="Open Circuit or Short Circuit to Battery Voltage"></definition>
+                    <fault_check_test condition="zsKey=1 and dsSTH_AUTOD=1 " algorithm="dsTh2oCk > dsSTH_TH2OV_ORH" threshold_par="dsSTH_TH2OV_ORH" type="scalar"></fault_check_test>
+                    <root_cause text="Wiring harness (connections between sensor and : Gnd, 5V,ECU) Coolant Temperature sensor "></root_cause>
+                    <repair_instruction text="1. Check wiring harness (connections between sensor and : Gnd(A14),ECU(A55)) 2. Replace Coolant Temperature sensor "></repair_instruction>
+                </symptom>
+
+                <symptom FMI_UDS="11" FMI_DM1="04">
+                    <definition text_short="SC_TO_GND" text_long="Short Circuit to Ground"></definition>
+                    <fault_check_test condition="zsKey=1 and dsSTH_AUTOD=1 " algorithm="dsTh2oCk > dsSTH_TH2OV_ORL" threshold_par="dsSTH_TH2OV_ORL" type="scalar"></fault_check_test>
+                    <root_cause text="Wiring harness (connections between sensor and : Gnd, 5V,ECU) Coolant Temperature sensor "></root_cause>
+                    <repair_instruction text="1. Check wiring harness (connections between sensor and : Gnd(A14),ECU(A55)) 2. Replace Coolant Temperature sensor "></repair_instruction>
+                </symptom>
+            </DTC>
+        </diag>
+
+
+</diag_lines>
+

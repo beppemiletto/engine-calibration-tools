@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gsec hw_version = "HDS9.V1" sw_release = "L6.02.05" >
+
+    <recovery type="STD" name="dsR02" byte="0" bit="1">
+        <task type="time" value="100"></task>
+        <definition text="Recovery TOIL"></definition>
+        <action description="1. The engineering value of the oil temperature is replaced with the recovery value (normally coolant temperature). 2. If dsR03 (coolant temperature not OK) also activates, then the recoveries value in calibration is used." ></action>
+        <rec_value symbol = "dsSTOH_TFIX_I"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR03" byte="0" bit="2">
+        <task type="time" value="100"></task>
+        <definition text="Recovery TH2O"></definition>
+        <action description="The engineering value of the coolant temperature is replaced with the recovery one (normally oil temperature, if available)." ></action>
+        <rec_value symbol = "dsSTOH_TFIX_I"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR04" byte="0" bit="3">
+        <task type="time" value="100"></task>
+        <definition text="Recovery TH2O, TOIL"></definition>
+        <action description="This recovery must be calibrated on the STOH diagnosis line, as it takes care of replacing the standard recovery values for the TOil and TH2o sensors when both are out of order. 1.2. The engineering value of the oil temperature is replaced with the recovery value calculated by the STOH recovery function. 3.4. The engineering value of the water temperature is replaced with the recovery value calculated by the STOH recovery function." ></action>
+        <rec_value symbol = "dsSTOH_TFIX_F"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR05" byte="0" bit="4">
+        <task type="time" value="100"></task>
+        <definition text="Recovery TAIR"></definition>
+        <action description="The engineering value of the air temperature is replaced with the recovery value. A model of warm up is available (details not available)" ></action>
+        <rec_value symbol = "dsSTA_TFIX"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR06" byte="0" bit="5">
+        <task type="time" value="100"></task>
+        <definition text="Recovery TRAIL"></definition>
+        <action description="The engineering value of the rail temperature is replaced with the recovery value." ></action>
+        <rec_value symbol = "dsSTM_TFIX"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR07" byte="0" bit="6">
+        <task type="time" value="4"></task>
+        <definition text="Recovery PRAIL"></definition>
+        <action description="The engineering value of the rail pressure is replaced with that of recovery." ></action>
+        <rec_value symbol = "dsSPM_PFIX"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR08" byte="0" bit="7">
+        <task type="time" value="4"></task>
+        <definition text="Recovery PCOLL_PRE"></definition>
+        <action description="Do not use error smoothing for the manifold pressure value estimated by the pressure predictor." ></action>
+        <rec_value symbol = "na"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR09" byte="1" bit="0">
+        <task type="time" value="4"></task>
+        <definition text="Recovery PTO/CC Reversible SHUTOFF"></definition>
+        <action description="The recovery sets the vsCond13 condition which allows, depending on how the PTO and CC control words are configured, to force the evolution of the MFLV state machine into one of the following states:- RevShutOff - Active * StandBy * StandByMem - IrrevShutOff. Typically used to force RevShutOff state." ></action>
+        <rec_value symbol = "na"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR10" byte="1" bit="1">
+        <task type="time" value="50"></task>
+        <definition text="Recovery BOOST"></definition>
+        <action description="The recovery modifies the maximum reference of the turbo target pressure by subtracting a degenerative offset (degradation of turbo performance)" ></action>
+        <rec_value symbol = "dsOFF_RIF_PRESS"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR11" byte="1" bit="2">
+        <task type="time" value="4"></task>
+        <definition text="Recovery MAP"></definition>
+        <action description="The engineering value of the pressure at the intake manifold is replaced with the recovery one." ></action>
+        <rec_value symbol = "dsSPA_PFIX"></rec_value>
+    </recovery>
+
+    <recovery type="STD" name="dsR12" byte="1" bit="3">
+        <task type="time" value="100"></task>
+        <definition text="Recovery PATM"></definition>
+        <action description="The engineering value of the atmospheric pressure is replaced with the recovery value." ></action>
+        <rec_value symbol = "dsSPT_PFIX"></rec_value>
+    </recovery>
+
+
+</gsec>
+
